@@ -1,5 +1,9 @@
 package com.dsg.fc.finalproject.core.domain;
 
+import com.dsg.fc.finalproject.core.domain.entity.Engagment;
+import com.dsg.fc.finalproject.core.domain.entity.Schedule;
+import com.dsg.fc.finalproject.core.domain.entity.ScheduleType;
+import com.dsg.fc.finalproject.core.domain.entity.User;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,18 +16,9 @@ class DomainCreateTest {
 
     @Test
     void eventCreate() {
-        final User writer = new User("dsgwriter", "dsg@gmail.com", "pwd", LocalDate.now(), LocalDateTime.now());
-        final User attendee = new User("dsgattendee", "dsg@gmail.com", "pwd", LocalDate.now(), LocalDateTime.now());
-        final Event event = new Event(
-            LocalDateTime.now(),
-            LocalDateTime.now(),
-            "title", "desc",
-            writer,
-            LocalDateTime.now()
-        );
-
-        event.addEnagagement(new Engagment(event, attendee, LocalDateTime.now(), RequestStatus.REQUESTED));
-
-        assertEquals(event.getEngagments().get(0).getEvent().getWriter().getName(), "dsgwriter");
+        final User me = new User("name", "email", "pw", LocalDate.now());
+        final Schedule taskSchedule = Schedule.task("할일", "청소하기", LocalDateTime.now(), me);
+        assertEquals(taskSchedule.getScheduleType(), ScheduleType.TASK);
+        assertEquals(taskSchedule.getTitle(), "할일");
     }
 }
