@@ -1,8 +1,6 @@
 package com.dsg.fc.finalproject.core.domain;
 
-import com.dsg.fc.finalproject.core.domain.entity.Engagment;
 import com.dsg.fc.finalproject.core.domain.entity.Schedule;
-import com.dsg.fc.finalproject.core.domain.entity.ScheduleType;
 import com.dsg.fc.finalproject.core.domain.entity.User;
 import org.junit.jupiter.api.Test;
 

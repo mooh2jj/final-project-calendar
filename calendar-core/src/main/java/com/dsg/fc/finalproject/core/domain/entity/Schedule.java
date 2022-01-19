@@ -2,6 +2,7 @@ package com.dsg.fc.finalproject.core.domain.entity;
 
 import com.dsg.fc.finalproject.core.domain.Event;
 import com.dsg.fc.finalproject.core.domain.Notification;
+import com.dsg.fc.finalproject.core.domain.ScheduleType;
 import com.dsg.fc.finalproject.core.domain.Task;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
