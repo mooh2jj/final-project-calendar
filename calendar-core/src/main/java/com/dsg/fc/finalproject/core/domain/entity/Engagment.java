@@ -12,11 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "engagments")
 @Entity
-public class Engagment {
+public class Engagment extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @JoinColumn(name = "schedule_id")
     @ManyToOne
     private Schedule schedule;
@@ -24,7 +21,7 @@ public class Engagment {
     @JoinColumn(name = "attendee_id")
     @ManyToOne
     private User attendee;
-    private LocalDateTime createdAt = LocalDateTime.now();
+
     private RequestStatus requestStatus;
 
 
