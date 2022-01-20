@@ -1,19 +1,17 @@
 package com.dsg.fc.finalproject.core.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 @NoArgsConstructor
-@Getter
 @Table(name = "users")
 @Entity
+@Builder
 public class User extends BaseEntity{
 
 
@@ -28,5 +26,21 @@ public class User extends BaseEntity{
         this.email = email;
         this.password = password;
         this.birthday = birthday;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public LocalDate getBirthday() {
+        return this.birthday;
     }
 }
