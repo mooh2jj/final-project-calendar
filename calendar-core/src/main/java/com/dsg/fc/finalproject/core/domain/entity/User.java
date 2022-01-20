@@ -1,5 +1,6 @@
 package com.dsg.fc.finalproject.core.domain.entity;
 
+import com.dsg.fc.finalproject.core.util.Encryptor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
@@ -42,5 +43,9 @@ public class User extends BaseEntity{
 
     public LocalDate getBirthday() {
         return this.birthday;
+    }
+
+    public boolean isMatch(Encryptor encryptor, String password) {
+        return encryptor.isMatch(password, this.password);
     }
 }

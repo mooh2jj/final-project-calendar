@@ -5,6 +5,7 @@ import com.dsg.fc.finalproject.api.dto.SignUpReq;
 import com.dsg.fc.finalproject.core.domain.entity.User;
 import com.dsg.fc.finalproject.core.dto.UserCreateReq;
 import com.dsg.fc.finalproject.core.service.UserService;
+import com.dsg.fc.finalproject.core.util.Encryptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
