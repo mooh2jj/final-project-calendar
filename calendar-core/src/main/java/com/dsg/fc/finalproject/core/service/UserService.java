@@ -38,4 +38,12 @@ public class UserService {
                 // Strategy 패턴 -> 객체 지향적으로 테스트하기 편해짐.
                 .map(u -> u.isMatch(encryptor, password) ? u : null);
     }
+
+    @Transactional
+    public User findByUserId(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("no user by id"));
+    }
+
+
 }
