@@ -1,7 +1,7 @@
 package com.dsg.fc.finalproject.core.domain.entity.repository;
 
-import com.dsg.fc.finalproject.core.domain.entity.Engagment;
+import com.dsg.fc.finalproject.core.domain.entity.Engagement;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EngagementRepository extends JpaRepository<Engagment, Long> {
+public interface EngagementRepository extends JpaRepository<Engagement, Long> {
 }
