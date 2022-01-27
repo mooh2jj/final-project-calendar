@@ -11,6 +11,6 @@ public class FakeEmailService implements EmailService{
 
     @Override
     public void sendEngagement(Engagement engagement) {
-        System.out.println("send email. email: " + engagement.getAttendee().getEmail() + ", scheduleId: " + engagement.getEvent());
+        System.out.println("send email. email: " + engagement.getAttendee().getEmail() + ", scheduleId: " + engagement.getSchedule().getId());
     }
 }

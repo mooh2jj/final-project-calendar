@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-
-import static com.dsg.fc.finalproject.api.service.LoginService.LOGIN_SESSION_KEY;
-
 @RequiredArgsConstructor
 @RequestMapping("/api/schedules")
 @RestController
@@ -28,22 +24,28 @@ public class ScheduleController {
     private final NotificationService notificationService;
 
     @PostMapping("/tasks")
-    public ResponseEntity<Void> createTask(@RequestBody TaskCreateReq taskCreateReq,
-                                           AuthUser authUser) {
+    public ResponseEntity<Void> createTask(
+            @RequestBody TaskCreateReq taskCreateReq,
+            AuthUser authUser
+    ) {
         taskService.create(taskCreateReq, authUser);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/events")
-    public ResponseEntity<Void> createTask(@RequestBody EventCreateReq eventCreateReq,
-                                           AuthUser authUser) {
+    public ResponseEntity<Void> createTask(
+            @RequestBody EventCreateReq eventCreateReq,
+            AuthUser authUser
+    ) {
         eventService.create(eventCreateReq, authUser);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/notifications")
-    public ResponseEntity<Void> createNotifications(@RequestBody NotificationCreateReq notificationCreateReq,
-                                           AuthUser authUser) {
+    public ResponseEntity<Void> createNotifications(
+            @RequestBody NotificationCreateReq notificationCreateReq,
+            AuthUser authUser
+    ) {
         notificationService.create(notificationCreateReq, authUser);
         return ResponseEntity.ok().build();
     }
