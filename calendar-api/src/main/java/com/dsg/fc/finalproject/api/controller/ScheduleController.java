@@ -1,24 +1,24 @@
 package com.dsg.fc.finalproject.api.controller;
 
-import com.dsg.fc.finalproject.api.dto.AuthUser;
-import com.dsg.fc.finalproject.api.dto.EventCreateReq;
-import com.dsg.fc.finalproject.api.dto.NotificationCreateReq;
-import com.dsg.fc.finalproject.api.dto.TaskCreateReq;
+import com.dsg.fc.finalproject.api.dto.*;
 import com.dsg.fc.finalproject.api.service.EventService;
 import com.dsg.fc.finalproject.api.service.NotificationService;
+import com.dsg.fc.finalproject.api.service.ScheduleQueryService;
 import com.dsg.fc.finalproject.api.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/schedules")
 @RestController
 public class ScheduleController {
 
+    private final ScheduleQueryService scheduleQueryService;
     private final TaskService taskService;
     private final EventService eventService;
     private final NotificationService notificationService;
@@ -48,6 +48,14 @@ public class ScheduleController {
     ) {
         notificationService.create(notificationCreateReq, authUser);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/day")
+    public List<ForListScheduleDto> getSchedulesByDay(
+            AuthUser authUser,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+    ) {
+        return scheduleQueryService.getSchedulesByDay(date == null ? LocalDate.now() : date, authUser);
     }
 
 }

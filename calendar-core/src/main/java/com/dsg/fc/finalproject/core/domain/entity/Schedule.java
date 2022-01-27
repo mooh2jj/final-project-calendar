@@ -4,15 +4,14 @@ import com.dsg.fc.finalproject.core.domain.Event;
 import com.dsg.fc.finalproject.core.domain.Notification;
 import com.dsg.fc.finalproject.core.domain.ScheduleType;
 import com.dsg.fc.finalproject.core.domain.Task;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.dsg.fc.finalproject.core.util.Period;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Builder
+@Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -77,5 +76,9 @@ public class Schedule extends BaseEntity{
 
     public Notification toNotification() {
         return new Notification(this);
+    }
+
+    public boolean isOverlapped(LocalDate date) {
+        return Period.of(this.getStartAt(), this.getEndAt()).isOverlapped(date);
     }
 }

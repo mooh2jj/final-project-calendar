@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Builder
@@ -40,6 +41,14 @@ public class Engagement extends BaseEntity{
 
     public RequestStatus getStatus() {
         return requestStatus;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public boolean isOverlapped(LocalDate date) {
+        return this.schedule.isOverlapped(date);
     }
 
 
