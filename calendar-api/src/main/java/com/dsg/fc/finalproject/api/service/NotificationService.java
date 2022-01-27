@@ -6,7 +6,6 @@ import com.dsg.fc.finalproject.core.domain.entity.Schedule;
 import com.dsg.fc.finalproject.core.domain.entity.User;
 import com.dsg.fc.finalproject.core.domain.entity.repository.ScheduleRepository;
 import com.dsg.fc.finalproject.core.service.UserService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,16 +24,14 @@ public class NotificationService {
     @Transactional
     public void create(NotificationCreateReq notificationCreateReq, AuthUser authUser) {
         final User user = userService.findByUserId(authUser.getId());
-        final List<LocalDateTime> notifyAtList = notificationCreateReq.getRepeatTimes();
-        notifyAtList.forEach(notifyAt -> {
+
+        notificationCreateReq.getRepeatTimes().forEach(notifyAt -> {
             final Schedule notificationSchedule = Schedule.notification(
                     notificationCreateReq.getTitle(),
-                    notificationCreateReq.getNotifyAt(),
+                    notifyAt,
                     user
             );
             scheduleRepository.save(notificationSchedule);
-
         });
-
     }
 }
