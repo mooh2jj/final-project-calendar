@@ -68,26 +68,4 @@ public class EventService {
                 });
 
     }
-
-//    @Transactional
-//    public void create(EventCreateReq req, AuthUser authUser) {
-//        // attendees 의 스케쥴 시간과 겹치지 않는지?
-//        final List<Engagement> engagementList =
-//                engagementRepository.findAllByAttendeeIdInAndSchedule_EndAtAfter(req.getAttendeeIds(),
-//                        req.getStartAt());
-//        if (engagementList
-//                .stream()
-//                .anyMatch(e -> e.getEvent().isOverlapped(req.getStartAt(), req.getEndAt())
-//                        && e.getStatus() == RequestStatus.ACCEPTED)) {
-//            throw new RuntimeException("cannot make engagement. period overlapped.");
-//        }
-//        final Schedule eventSchedule = Schedule.event(req.getTitle(), req.getDescription(), req.getStartAt(), req.getEndAt(), userService.findByUserId(authUser.getId()));
-//        scheduleRepository.save(eventSchedule);
-//        req.getAttendeeIds().stream()
-//                .map(userService::findByUserId)
-//                .forEach(user -> {
-//                    final Engagement e = engagementRepository.save(new Engagement(eventSchedule, user));
-//                    emailService.sendEngagement(e);
-//                });
-//    }
 }
