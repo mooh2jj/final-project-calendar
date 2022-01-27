@@ -2,6 +2,7 @@ package com.dsg.fc.finalproject.core.domain.entity;
 
 import com.dsg.fc.finalproject.core.domain.Event;
 import com.dsg.fc.finalproject.core.domain.RequestStatus;
+import com.dsg.fc.finalproject.core.util.Period;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -52,4 +53,7 @@ public class Engagement extends BaseEntity{
     }
 
 
+    public boolean isOverlapped(Period period) {
+        return this.schedule.isOverlapped(period);
+    }
 }
