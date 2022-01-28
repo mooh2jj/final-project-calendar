@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -26,38 +25,22 @@ public class ScheduleQueryService {
     private final EngagementRepository engagementRepository;
 
     public List<ForListScheduleDto> getSchedulesByDay(LocalDate date, AuthUser authUser) {
-        return Stream.concat(
-                scheduleRepository
-                        .findAllByWriter_Id(authUser.getId())
-                        .stream()
-                        .filter(schedule -> schedule.isOverlapped(date))
-                        .map(schedule -> DtoConverter.toForListDto(schedule)),
-                engagementRepository
-                        .findAllByAttendeeId(authUser.getId())
-                        .stream()
-                        .filter(engagement -> engagement.isOverlapped(date))
-                        .map(engagement -> DtoConverter.toForListDto(engagement.getSchedule()))
-        ).collect(toList());
+        final Period period = Period.of(date, date);
+
+        return getScheduleByPeriod(scheduleRepository, authUser, period, engagementRepository);
     }
 
     public List<ForListScheduleDto> getSchedulesByWeek(LocalDate startOfWeek, AuthUser authUser) {
         final Period period = Period.of(startOfWeek, startOfWeek.plusDays(6));
-        return Stream.concat(
-                scheduleRepository
-                        .findAllByWriter_Id(authUser.getId())
-                        .stream()
-                        .filter(schedule -> schedule.isOverlapped(period))
-                        .map(schedule -> DtoConverter.toForListDto(schedule)),
-                engagementRepository
-                        .findAllByAttendeeId(authUser.getId())
-                        .stream()
-                        .filter(engagement -> engagement.isOverlapped(period))
-                        .map(engagement -> DtoConverter.toForListDto(engagement.getSchedule()))
-        ).collect(toList());
+        return getScheduleByPeriod(scheduleRepository, authUser, period, engagementRepository);
     }
 
     public List<ForListScheduleDto> getSchedulesByMonth(YearMonth yearMonth, AuthUser authUser) {
         final Period period = Period.of(yearMonth.atDay(1), yearMonth.atEndOfMonth());
+        return getScheduleByPeriod(scheduleRepository, authUser, period, engagementRepository);
+    }
+
+    private List<ForListScheduleDto> getScheduleByPeriod(ScheduleRepository scheduleRepository, AuthUser authUser, Period period, EngagementRepository engagementRepository) {
         return Stream.concat(
                 scheduleRepository
                         .findAllByWriter_Id(authUser.getId())
