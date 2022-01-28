@@ -27,20 +27,20 @@ public class ScheduleQueryService {
     public List<ForListScheduleDto> getSchedulesByDay(LocalDate date, AuthUser authUser) {
         final Period period = Period.of(date, date);
 
-        return getScheduleByPeriod(scheduleRepository, authUser, period, engagementRepository);
+        return getScheduleByPeriod(authUser, period);
     }
 
     public List<ForListScheduleDto> getSchedulesByWeek(LocalDate startOfWeek, AuthUser authUser) {
         final Period period = Period.of(startOfWeek, startOfWeek.plusDays(6));
-        return getScheduleByPeriod(scheduleRepository, authUser, period, engagementRepository);
+        return getScheduleByPeriod(authUser, period);
     }
 
     public List<ForListScheduleDto> getSchedulesByMonth(YearMonth yearMonth, AuthUser authUser) {
         final Period period = Period.of(yearMonth.atDay(1), yearMonth.atEndOfMonth());
-        return getScheduleByPeriod(scheduleRepository, authUser, period, engagementRepository);
+        return getScheduleByPeriod(authUser, period);
     }
 
-    private List<ForListScheduleDto> getScheduleByPeriod(ScheduleRepository scheduleRepository, AuthUser authUser, Period period, EngagementRepository engagementRepository) {
+    private List<ForListScheduleDto> getScheduleByPeriod(AuthUser authUser, Period period) {
         return Stream.concat(
                 scheduleRepository
                         .findAllByWriter_Id(authUser.getId())
