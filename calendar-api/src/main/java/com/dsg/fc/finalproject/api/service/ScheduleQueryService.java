@@ -46,12 +46,12 @@ public class ScheduleQueryService {
                         .findAllByWriter_Id(authUser.getId())
                         .stream()
                         .filter(schedule -> schedule.isOverlapped(period))
-                        .map(schedule -> DtoConverter.toForListDto(schedule)),
+                        .map(DtoConverter::fromSchedule),
                 engagementRepository
                         .findAllByAttendeeId(authUser.getId())
                         .stream()
                         .filter(engagement -> engagement.isOverlapped(period))
-                        .map(engagement -> DtoConverter.toForListDto(engagement.getSchedule()))
+                        .map(engagement -> DtoConverter.fromSchedule(engagement.getSchedule()))
         ).collect(toList());
     }
 }

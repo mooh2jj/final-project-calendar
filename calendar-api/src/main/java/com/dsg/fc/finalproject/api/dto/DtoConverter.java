@@ -3,7 +3,7 @@ package com.dsg.fc.finalproject.api.dto;
 import com.dsg.fc.finalproject.core.domain.entity.Schedule;
 
 public abstract class DtoConverter {
-    public static ForListScheduleDto toForListDto(Schedule schedule) {
+    public static ForListScheduleDto fromSchedule(Schedule schedule) {
         switch (schedule.getScheduleType()) {
             case EVENT:
                 return ForListEventDto.builder()
