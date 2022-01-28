@@ -3,6 +3,8 @@ package com.dsg.fc.finalproject.core.service;
 import com.dsg.fc.finalproject.core.domain.entity.User;
 import com.dsg.fc.finalproject.core.domain.entity.repository.UserRepository;
 import com.dsg.fc.finalproject.core.dto.UserCreateReq;
+import com.dsg.fc.finalproject.core.exception.CalendarException;
+import com.dsg.fc.finalproject.core.exception.ErrorCode;
 import com.dsg.fc.finalproject.core.util.Encryptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class UserService {
         // dsg : 리팩토링 여지 있음
         userRepository.findByEmail(req.getEmail())
                 .ifPresent(u -> {
-                    throw new RuntimeException("cannot find user");
+                    throw new CalendarException(ErrorCode.USER_NOT_FOUND);
                 });
         return userRepository.save(User.builder()
                 .name(req.getName())
@@ -42,7 +44,7 @@ public class UserService {
     @Transactional
     public User findByUserId(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("no user by id"));
+                .orElseThrow(() -> new CalendarException(ErrorCode.USER_NOT_FOUND));
     }
 
 

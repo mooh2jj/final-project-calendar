@@ -1,6 +1,8 @@
 package com.dsg.fc.finalproject.api.dto;
 
 import com.dsg.fc.finalproject.core.domain.entity.Schedule;
+import com.dsg.fc.finalproject.core.exception.CalendarException;
+import com.dsg.fc.finalproject.core.exception.ErrorCode;
 
 public abstract class DtoConverter {
     public static ForListScheduleDto fromSchedule(Schedule schedule) {
@@ -30,7 +32,7 @@ public abstract class DtoConverter {
                         .writerId(schedule.getWriter().getId())
                         .build();
             default:
-                throw new RuntimeException("bad request. not matched schedule type.");
+                throw new CalendarException(ErrorCode.BAD_REQUEST);
         }
     }
 }

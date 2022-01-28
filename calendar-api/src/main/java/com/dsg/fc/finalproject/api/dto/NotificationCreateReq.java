@@ -1,5 +1,7 @@
 package com.dsg.fc.finalproject.api.dto;
 
+import com.dsg.fc.finalproject.core.exception.CalendarException;
+import com.dsg.fc.finalproject.core.exception.ErrorCode;
 import com.dsg.fc.finalproject.core.util.TimeUnit;
 import lombok.Data;
 
@@ -39,7 +41,7 @@ public class NotificationCreateReq {
                         case YEAR:
                             return notifyAt.plusYears(increment);
                         default:
-                            throw new RuntimeException("bad request. not match time unit");
+                            throw new CalendarException(ErrorCode.BAD_REQUEST);
                     }
                 })
                 .collect(toList());
