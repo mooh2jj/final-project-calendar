@@ -27,7 +27,7 @@ public class ScheduleController {
 
     @PostMapping("/tasks")
     public ResponseEntity<Void> createTask(
-            @RequestBody TaskCreateReq taskCreateReq,
+            @Valid @RequestBody TaskCreateReq taskCreateReq,
             AuthUser authUser
     ) {
         taskService.create(taskCreateReq, authUser);
@@ -45,7 +45,7 @@ public class ScheduleController {
 
     @PostMapping("/notifications")
     public ResponseEntity<Void> createNotifications(
-            @RequestBody NotificationCreateReq notificationCreateReq,
+            @Valid @RequestBody NotificationCreateReq notificationCreateReq,
             AuthUser authUser
     ) {
         notificationService.create(notificationCreateReq, authUser);
